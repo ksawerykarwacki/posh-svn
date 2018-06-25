@@ -1,12 +1,12 @@
 function SvnTabExpansion($lastBlock) {
-  switch -regex ($lastBlock) { 
-  
+  switch -regex ($lastBlock) {
+
     #handles svn help <cmd>
     #handles svn <cmd>
     'svn (help )?(\S*)$' {
       svnCommands($matches[2]);
     }
-    
+
     'tsvn (\S*)$' {
       tortoiseSvnCommands($matches[1]);
     }
@@ -27,19 +27,19 @@ function svnCommands($filter) {
       }
     }
   }
-  $cmdList | sort
+  $cmdList | Sort-Object
 }
 
 function tortoiseSvnCommands($filter) {
   if($filter) {
-    return $tsvnCommands.keys | where { $tsvnCommands[$_].cmd.StartsWith($filter) } | sort
+    return $tsvnCommands.keys | Where-Object { $tsvnCommands[$_].cmd.StartsWith($filter) } | Sort-object
   }
   else {
-    return $tsvnCommands.keys | sort
+    return $tsvnCommands.keys | Sort-Object
   }
 }
 
-$tsvnCommands = @{ 
+$tsvnCommands = @{
 "about" = @{ cmd = "about"; useCurrentDirectory = $false };
 "log" = @{ cmd = "log"; useCurrentDirectory = $true };
 "checkout" = @{ cmd = "checkout"; useCurrentDirectory = $false };
