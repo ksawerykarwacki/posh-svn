@@ -73,7 +73,7 @@ function Get-SvnStatus($svnDir = (Get-SvnDirectory)) {
 
         # EnableRemoteStatus: defaults to true
         $showRemote = (-not $settings) -or $settings.EnableRemoteStatus
-        if ($showRemote -and (Test-Connection -computername $hostName -Quiet -Count 1 -BufferSize 1)) {
+        if ($showRemote -and (Test-Connection -computername $hostName -Quiet -Count 1 -BufferSize 1 -InformationAction Ignore)) {
             $statusArgs += '--show-updates'
         }
 
